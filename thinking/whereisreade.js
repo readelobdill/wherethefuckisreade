@@ -62,12 +62,8 @@
 	}
 
 	var buildMap = function() {
-		//initial location
-		var initLocation = data[0].location;
-
 		var map_canvas = $('.fucking-map-container').get(0);
 		var mapOptions = {
-			center: new google.maps.LatLng(initLocation.latitude, initLocation.longitude),
 			zoom: 11,
 			mapTypeId: google.maps.MapTypeId.TERRAIN,
 			// must set to false for keydown location changes
