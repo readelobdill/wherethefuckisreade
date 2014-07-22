@@ -1,0 +1,75 @@
+body{
+	padding-bottom: 200px;
+}
+
+.right-fucking-here, .fucking-saying{
+	display: block;
+	font-size: 4em;
+	font-family: Arial;
+	text-align: center;
+	width: 80%;
+	margin: 60px auto 0 auto;
+}
+
+.fucking-saying{
+	font-size: 2em;
+	width: 75%;
+}
+
+.fucking-content-container{
+	margin: 60px auto;
+	width: 80%;
+	max-width: 900px;
+	min-height: 450px;
+	overflow: hidden;
+}
+
+.fucking-map-container, .fucking-looking-at-container{
+	min-height: 450px;
+	width: 100%;
+	float: left;
+}
+
+@media (min-width: 768px) {
+	.fucking-map-container, .fucking-looking-at-container{
+		width: 50%;
+	}
+}
+
+.fucking-image{
+	width: 100%;
+	margin: auto;
+}
+
+.go-fucking-left{
+	background: url('../photos/arrow-left.png') 0px 0px no-repeat;
+	left: 0;
+}
+
+.go-fucking-right{
+	background: url('../photos/arrow-right.png') 0px 0px no-repeat;
+	right: 0;
+}
+
+.fucking-arrow, .fucking-arrow:active, .fucking-arrow:focus{
+	padding: 0;
+	margin: 0;
+	outline: 0;
+	border: 0;
+
+	position: fixed;
+	width: 10%;
+	height: 300px;
+	top: 300px;
+	cursor: pointer;
+	background-size: 100%;
+	opacity: 0.7;
+}
+
+.fucking-arrow:hover{
+	opacity: 1;
+}
+
+.fucking-arrow:disabled{
+	opacity: 0.2;
+}
