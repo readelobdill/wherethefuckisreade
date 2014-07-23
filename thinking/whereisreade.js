@@ -18,11 +18,11 @@
 			}
 		);
 
-		$('.go-fucking-left').on('click', function(){
+		$('.go-fucking-left').on('vclick', function(){
 			previousLocation();
 		});
 
-		$('.go-fucking-right').on('click', function(){
+		$('.go-fucking-right').on('vclick', function(){
 			nextLocation();
 		});
 
