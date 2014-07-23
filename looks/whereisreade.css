@@ -36,6 +36,20 @@ body{
 	}
 }
 
+/* iPads (portrait) */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+	.fucking-map-container, .fucking-looking-at-container{
+		width: 100%;
+	}
+}
+
+/* Smartphones (portrait) */
+@media only screen and (max-width : 320px) {
+	.fucking-map-container, .fucking-looking-at-container{
+		width: 100%;
+	}
+}
+
 .fucking-image{
 	width: 100%;
 	margin: auto;
