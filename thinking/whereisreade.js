@@ -84,7 +84,7 @@
 				location: coordinates,
 				imgUrl: location.images.standard_resolution.url,
 				link: location.link,
-				caption: location.caption ? location.caption.text: "Nothing",
+				caption: location.caption ? location.caption.text: null,
 				position: new google.maps.LatLng(coordinates.latitude, coordinates.longitude),
 				map: map,
 				icon: 'photos/location-dot.png'
@@ -102,9 +102,12 @@
 
 	var buildImage = function(marker) {
 		var imgUrl = marker.imgUrl;
-		var caption = marker.caption;
 		var instagramLink = marker.link;
+
+		// build caption
+		var captionStart = marker.caption;
 		var captionEnd = index === 0 ? 'is what he is fucking saying.': 'is what he was fucking saying.';
+		var caption = captionStart ? "'" + captionStart + "' " + captionEnd: "He wasn't saying anything.";
 
 		marker.setIcon('photos/location-pin.png');
 		map.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
@@ -112,7 +115,7 @@
 
 		$('.fucking-image').attr('src', imgUrl);
 		$('.fucking-instagram-link').attr('href', instagramLink);
-		$('.fucking-saying').text("'" + caption + "' " + captionEnd).linkify();
+		$('.fucking-saying').text(caption).linkify();
 	}
 
 	var changeText = function(){
