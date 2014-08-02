@@ -63,16 +63,23 @@
 
 	var buildMap = function() {
 		var map_canvas = $('.fucking-map-container').get(0);
+
+		var layer = "watercolor";
 		var mapOptions = {
 			zoom: 11,
-			mapTypeId: google.maps.MapTypeId.TERRAIN,
+			mapTypeId: layer,
+			mapTypeControlOptions: {
+			    mapTypeIds: [layer]
+			},
 			// must set to false for keydown location changes
 			// when clicking on a location pin the map steals focus and keyboard events from the window
 			keyboardShortcuts: false,
 			// stop map zoom when scrolling over map
 			scrollwheel: false
 		}
+
 		map = new google.maps.Map(map_canvas, mapOptions);
+		map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 
 		_.each(data, function(location, index){
 			var coordinates = location.location;
