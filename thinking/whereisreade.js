@@ -71,6 +71,7 @@
 			mapTypeControlOptions: {
 			    mapTypeIds: [layer]
 			},
+			mapTypeControl: false,
 			// must set to false for keydown location changes
 			// when clicking on a location pin the map steals focus and keyboard events from the window
 			keyboardShortcuts: false,
