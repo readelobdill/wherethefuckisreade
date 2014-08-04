@@ -151,7 +151,6 @@
 
 	var showLoadingImg = function(){
 		$('.fucking-image').attr('src', '');
-		$('.fucking-image').attr('src', 'photos/loading.gif');
 
 		// TODO - find a better way to do this
 		_.each(allMarkers, function(marker){
