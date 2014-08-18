@@ -84,7 +84,8 @@
 		map = new google.maps.Map(map_canvas, mapOptions);
 		map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 
-		backgroundMap = new google.maps.Map(map_background, _.extend(mapOptions, {disableDefaultUI: true}));
+		var backgroundMapOptions = _.extend(mapOptions, {disableDefaultUI: true, zoom: 4})
+		backgroundMap = new google.maps.Map(map_background, backgroundMapOptions);
 		backgroundMap.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 
 		_.each(data, function(location, index){
