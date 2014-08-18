@@ -3,7 +3,8 @@
 	var index = 0,
 		data,
 		allMarkers = [],
-		map;
+		map,
+		backgroundMap;
 
 
 	var initialize = function() {
@@ -63,6 +64,7 @@
 
 	var buildMap = function() {
 		var map_canvas = $('.fucking-map-container').get(0);
+		var map_background = $('.fucking-map-background').get(0);
 
 		var layer = "watercolor";
 		var mapOptions = {
@@ -81,6 +83,9 @@
 
 		map = new google.maps.Map(map_canvas, mapOptions);
 		map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
+
+		backgroundMap = new google.maps.Map(map_background, _.extend(mapOptions, {disableDefaultUI: true}));
+		backgroundMap.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 
 		_.each(data, function(location, index){
 			var coordinates = location.location;
@@ -119,6 +124,7 @@
 
 		marker.setIcon('photos/location-pin.png');
 		map.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
+		backgroundMap.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
 		// marker.setAnimation(google.maps.Animation.DROP);
 
 		$('.fucking-image').attr('src', imgUrl);
