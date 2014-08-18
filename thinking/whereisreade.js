@@ -7,6 +7,7 @@
 		backgroundMap,
 		geocoder = new google.maps.Geocoder(),
 		timer,
+		currentMarker;
 
 
 	var initialize = function() {
@@ -119,6 +120,7 @@
 	var buildImage = function(marker) {
 		var imgUrl = marker.imgUrl;
 		var instagramLink = marker.link;
+		currentMarker = marker;
 
 		// build caption
 		var captionStart = marker.caption;
@@ -186,12 +188,8 @@
 
 	var showLoadingImg = function(){
 		$('.fucking-image').attr('src', '');
-
-		// TODO - find a better way to do this
-		_.each(allMarkers, function(marker){
-			marker.setIcon('photos/location-dot.png');
-		});
 		$('.fucking-at').text('');
+		currentMarker.setIcon('photos/location-dot.png');
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
