@@ -4,7 +4,9 @@
 		data,
 		allMarkers = [],
 		map,
-		backgroundMap;
+		backgroundMap,
+		geocoder = new google.maps.Geocoder(),
+		timer,
 
 
 	var initialize = function() {
@@ -128,6 +130,10 @@
 		backgroundMap.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
 		// marker.setAnimation(google.maps.Animation.DROP);
 
+    	// Clear timer if it exists aka if we have hit query limit
+		if (timer) clearTimeout(timer);
+		setLocationText(marker.position);
+
 		$('.fucking-image').attr('src', imgUrl);
 		$('.fucking-instagram-link').attr('href', instagramLink);
 		$('.fucking-saying').text(caption).linkify();
@@ -157,6 +163,27 @@
 		}
 	}
 
+	var setLocationText = function(position){
+		geocoder.geocode({'latLng': position}, function(results, status) {
+		    if ( status === google.maps.GeocoderStatus.OK ) {
+		    	// Specific Address Name
+		    	if(results[1]){
+		      		$('.fucking-at').text("At " + results[1].formatted_address);
+		    	// Non-specific Address Name
+		    	} else {
+		      		$('.fucking-at').text("At " + results[0].formatted_address);
+		    	}
+	    	// Must wait and try again if we have made too many requests
+	      	} else if ( status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT ) {
+	      		timer = setTimeout(function(){
+	      			setLocationText(position);
+	      		}, 1000);
+	      	} else {
+	      		throw new Error(status);
+	      	}
+	    });
+	}
+
 	var showLoadingImg = function(){
 		$('.fucking-image').attr('src', '');
 
@@ -164,6 +191,7 @@
 		_.each(allMarkers, function(marker){
 			marker.setIcon('photos/location-dot.png');
 		});
+		$('.fucking-at').text('');
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);

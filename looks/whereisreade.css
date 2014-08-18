@@ -2,7 +2,7 @@ body{
 	padding-bottom: 200px;
 }
 
-.right-fucking-here, .fucking-saying{
+.right-fucking-here, .fucking-saying, .fucking-at{
 	display: block;
 	font-size: 4em;
 	font-family: Arial;
@@ -11,13 +11,18 @@ body{
 	margin: 60px auto 0 auto;
 }
 
-.fucking-saying{
+.fucking-saying, .fucking-at{
 	font-size: 2em;
 	width: 75%;
 }
 
+.fucking-at{
+	margin: 40px auto 0 auto;
+	font-size: 1.5em;
+}
+
 .fucking-content-container{
-	margin: 60px auto;
+	margin: 30px auto 60px auto;
 	width: 80%;
 	max-width: 900px;
 	min-height: 450px;
