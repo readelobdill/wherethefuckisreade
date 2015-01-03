@@ -12,8 +12,11 @@
 
 	var initialize = function() {
 		$.getJSON(
-			'https://api.instagram.com/v1/users/490773256/media/recent/?client_id=fc3bba8db3dd42b7bfda1e3aa92b3a86&count=-1&callback=?',
-			{access_token:'490773256.fc3bba8.0bb01a7762694dc081b239114063af32'},
+			'https://api.instagram.com/v1/users/490773256/media/recent?callback=?',
+			{
+				access_token:'490773256.fc3bba8.0bb01a7762694dc081b239114063af32',
+				count: '33'
+			},
 			function(json){
 				data = json.data;
 
@@ -192,6 +195,11 @@
 		currentMarker.setIcon('photos/location-dot.png');
 	}
 
-	google.maps.event.addDomListener(window, 'load', initialize);
-
+	// google.maps.event.addDomListener(window, 'load', initialize);
+	document.addEventListener("deviceready", function(){
+		console.log('HERE')
+		$.getScript('http://code.jquery.com/jquery-latest.min.js')
+		$.getScript('http://maps.googleapis.com/maps/api/js?sensor=false')
+		initialize();
+	}, false);
 })();
