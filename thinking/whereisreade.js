@@ -195,11 +195,5 @@
 		currentMarker.setIcon('photos/location-dot.png');
 	}
 
-	// google.maps.event.addDomListener(window, 'load', initialize);
-	document.addEventListener("deviceready", function(){
-		console.log('HERE')
-		$.getScript('http://code.jquery.com/jquery-latest.min.js')
-		$.getScript('http://maps.googleapis.com/maps/api/js?sensor=false')
-		initialize();
-	}, false);
+	google.maps.event.addDomListener(window, 'load', initialize);
 })();
