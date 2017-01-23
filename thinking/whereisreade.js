@@ -5,21 +5,40 @@ let index = 0,
 	backgroundMap,
 	geocoder = new google.maps.Geocoder(),
 	timer,
-	currentMarker;
+	currentMarker,
+	gulo,
+	brit;
 
-$.getJSON(
-	'https://api.instagram.com/v1/users/490773256/media/recent?callback=?',
-	{
-		access_token:'490773256.fc3bba8.0bb01a7762694dc081b239114063af32',
-		count: '33'
-	},
-	function(json){
-		data = _.filter(json.data, item => item.location);
+$.when(
+  // Get the HTML
+  $.getJSON(
+  	'https://api.instagram.com/v1/users/368603040/media/recent?callback=?',
+  	{
+  		access_token:'368603040.1677ed0.6518c9a316824703a8e74b41de8b9b01',
+  		count: '33'
+  	},
+  	function(json){
+		gulo = _.filter(json.data, item => item.location);
+  	}
+  ),
 
-		buildMap();
-		buildImage(allMarkers[index]);
-	}
-);
+  $.getJSON(
+  	'https://api.instagram.com/v1/users/258538248/media/recent?callback=?',
+  	{
+  		access_token:'258538248.1677ed0.dd79933fd1d44eb09da12ebfb7e67539',
+  		count: '33'
+  	},
+  	function(json){
+  		brit = _.filter(json.data, item => item.location);
+  	}
+  )
+
+).then(function() {
+	data = brit.concat(gulo);
+	data.sort((a, b) => b.created_time - a.created_time);
+	buildMap();
+	buildImage(allMarkers[index]);
+});
 
 $('.go-fucking-left').on('vclick', function(){
 	nextLocation();
@@ -98,8 +117,7 @@ function buildMap() {
 			link: location.link,
 			caption: location.caption ? location.caption.text: null,
 			position: new google.maps.LatLng(coordinates.latitude, coordinates.longitude),
-			map: map,
-			icon: 'photos/location-dot.png'
+			map: map
 		});
 
 		google.maps.event.addListener(marker, "click", function() {
@@ -119,10 +137,10 @@ function buildImage(marker) {
 
 	// build caption
 	let captionStart = marker.caption;
-	let captionEnd = index === 0 ? 'is what he is fucking saying.': 'is what he was fucking saying.';
-	let caption = captionStart ? "'" + captionStart + "' " + captionEnd: "He wasn't saying anything.";
+	let captionEnd = 'is what they were saying.';
+	let caption = captionStart ? "'" + captionStart + "' " + captionEnd : "They weren't saying anything.";
 
-	marker.setIcon('photos/location-pin.png');
+	// marker.setIcon('photos/location-pin.png');
 	map.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
 	backgroundMap.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
 	// marker.setAnimation(google.maps.Animation.DROP);
@@ -138,11 +156,11 @@ function buildImage(marker) {
 
 function changeText(){
 	if(index === 0){
-		$('.right-fucking-here').text('reade is right fucking here.');
-		$('.fucking-looking-at').text('he is fucking looking at this.');
+		$('.right-fucking-here').text('brit and gulo are right here.');
+		$('.fucking-looking-at').text('they are looking at this.');
 	} else {
-		$('.right-fucking-here').text('reade was right fucking here.');
-		$('.fucking-looking-at').text('he was fucking looking at.');
+		$('.right-fucking-here').text('brit and gulo were right here.');
+		$('.fucking-looking-at').text('they were looking at.');
 	}
 }
 
@@ -178,5 +196,5 @@ function setLocationText(position){
 function showLoadingImg(){
 	$('.fucking-image').attr('src', '');
 	$('.fucking-at').text('');
-	currentMarker.setIcon('photos/location-dot.png');
+	// currentMarker.setIcon('photos/location-dot.png');
 }
