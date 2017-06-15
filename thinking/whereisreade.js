@@ -10,7 +10,7 @@ let index = 0,
 $.getJSON(
 	'https://api.instagram.com/v1/users/490773256/media/recent?callback=?',
 	{
-		access_token:'490773256.fc3bba8.0bb01a7762694dc081b239114063af32',
+		access_token:'490773256.1677ed0.1fad774a97e04b3a9dee64b541de87c3',
 		count: '33'
 	},
 	function(json){
