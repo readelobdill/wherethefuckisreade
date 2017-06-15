@@ -1,7 +1,5 @@
 let index = 0,
-	data,
 	allMarkers = [],
-	map,
 	backgroundMap,
 	geocoder = new google.maps.Geocoder(),
 	timer,
@@ -14,9 +12,8 @@ $.getJSON(
 		count: '33'
 	},
 	function(json){
-		data = _.filter(json.data, item => item.location);
-
-		buildMap();
+		let data = _.filter(json.data, item => item.location);
+		buildMap(data);
 		buildImage(allMarkers[index]);
 	}
 );
@@ -43,8 +40,6 @@ function previousLocation(){
 
 		index++;
 		buildImage(allMarkers[index]);
-
-		changeText()
 	}
 
 	handleArrowStates();
@@ -56,20 +51,19 @@ function nextLocation(){
 
 		index--;
 		buildImage(allMarkers[index]);
-
-		changeText()
 	}
 
 	handleArrowStates();
 }
 
-function buildMap() {
+function buildMap(data) {
 	let map_canvas = $('.fucking-map-container').get(0);
 	let map_background = $('.fucking-map-background').get(0);
 
 	let layer = "watercolor";
 	let mapOptions = {
-		zoom: 11,
+		zoom: 5,
+		disableDefaultUI: true,
 		mapTypeId: layer,
 		mapTypeControlOptions: {
 		    mapTypeIds: [layer]
@@ -82,11 +76,7 @@ function buildMap() {
 		scrollwheel: false
 	}
 
-	map = new google.maps.Map(map_canvas, mapOptions);
-	map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
-
-	let backgroundMapOptions = _.extend(mapOptions, {disableDefaultUI: true, zoom: 4})
-	backgroundMap = new google.maps.Map(map_background, backgroundMapOptions);
+	backgroundMap = new google.maps.Map(map_background, mapOptions);
 	backgroundMap.mapTypes.set(layer, new google.maps.StamenMapType(layer));
 
 	_.each(data, function(location, index){
@@ -95,11 +85,12 @@ function buildMap() {
 		let marker = new google.maps.Marker({
 			location: coordinates,
 			imgUrl: location.images.standard_resolution.url,
+			videoUrl: location.videos ? location.videos.standard_resolution.url : null,
 			link: location.link,
-			caption: location.caption ? location.caption.text: null,
+			caption: location.caption ? location.caption.text : null,
 			position: new google.maps.LatLng(coordinates.latitude, coordinates.longitude),
-			map: map,
-			icon: 'photos/location-dot.png'
+			map: backgroundMap,
+			icon: 'photos/transparent.png'
 		});
 
 		google.maps.event.addListener(marker, "click", function() {
@@ -123,27 +114,19 @@ function buildImage(marker) {
 	let caption = captionStart ? "'" + captionStart + "' " + captionEnd: "He wasn't saying anything.";
 
 	marker.setIcon('photos/location-pin.png');
-	map.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
-	backgroundMap.panTo(new google.maps.LatLng(marker.location.latitude, marker.location.longitude));
-	// marker.setAnimation(google.maps.Animation.DROP);
+	backgroundMap.panTo(new google.maps.LatLng(marker.location.latitude - 7, marker.location.longitude));
 
 	// Clear timer if it exists aka if we have hit query limit
 	if (timer) clearTimeout(timer);
 	setLocationText(marker.position);
 
-	$('.fucking-image').attr('src', imgUrl);
+	if (marker.videoUrl) {
+		$('.fucking-video').attr('src', marker.videoUrl);
+	} else {
+		$('.fucking-image').attr('src', imgUrl);
+	}
 	$('.fucking-instagram-link').attr('href', instagramLink);
 	$('.fucking-saying').text(caption).linkify();
-}
-
-function changeText(){
-	if(index === 0){
-		$('.right-fucking-here').text('reade is right fucking here.');
-		$('.fucking-looking-at').text('he is fucking looking at this.');
-	} else {
-		$('.right-fucking-here').text('reade was right fucking here.');
-		$('.fucking-looking-at').text('he was fucking looking at.');
-	}
 }
 
 function handleArrowStates(){
@@ -177,6 +160,7 @@ function setLocationText(position){
 
 function showLoadingImg(){
 	$('.fucking-image').attr('src', '');
+	$('.fucking-video').attr('src', '');
 	$('.fucking-at').text('');
-	currentMarker.setIcon('photos/location-dot.png');
+	currentMarker.setIcon('photos/transparent.png');
 }

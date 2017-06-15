@@ -1,14 +1,15 @@
 body{
 	padding-bottom: 200px;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .right-fucking-here, .fucking-saying, .fucking-at{
 	display: block;
-	font-size: 4em;
+	font-size: 3em;
 	font-family: Arial;
 	text-align: center;
 	width: 80%;
-	margin: 60px auto 0 auto;
+	margin: 30px auto 0 auto;
 }
 
 .fucking-saying, .fucking-at{
@@ -18,49 +19,39 @@ body{
 
 .fucking-at{
 	margin: 40px auto 0 auto;
-	font-size: 1.5em;
+	min-height: 40px;
+	font-size: 2.5em;
 }
 
 .fucking-content-container{
-	margin: 30px auto 60px auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 200px auto 60px auto;
 	width: 80%;
 	max-width: 900px;
-	min-height: 450px;
 	overflow: hidden;
 }
 .fucking-looking-at-container{
 	background: url('../photos/loading.gif') no-repeat center center;
 	background-size: 90%;
+	margin: 0 auto;
+	opacity: 0.8;
 }
 
 .fucking-map-container, .fucking-looking-at-container{
-	min-height: 450px;
-	float: left;
+	width: 400px;
 }
 
-@media (min-width: 768px) {
-	.fucking-map-container, .fucking-looking-at-container{
-		width: 50%;
-	}
-}
-
-/* iPads (portrait) */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
-	.fucking-map-container, .fucking-looking-at-container{
-		width: 100%;
-	}
-}
-
-/* Smartphones (portrait) */
-@media only screen and (max-width : 320px) {
-	.fucking-map-container, .fucking-looking-at-container{
-		width: 100%;
-	}
-}
-
-.fucking-image{
+.fucking-image,
+.fucking-video{
 	width: 100%;
 	margin: auto;
+}
+
+.fucking-image[src=""],
+.fucking-video[src=""]{
+	display: none;
 }
 
 .go-fucking-left{
@@ -102,6 +93,6 @@ body{
     height:100%;
     width:100%;
     z-index: -1;
-    opacity: 0.4;
+    /*opacity: 0.4;*/
     pointer-events: none;
 }
