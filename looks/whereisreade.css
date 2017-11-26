@@ -1,6 +1,7 @@
 body{
 	padding-bottom: 200px;
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	pointer-events: none;
 }
 
 .right-fucking-here, .fucking-saying, .fucking-at{
@@ -15,32 +16,47 @@ body{
 .fucking-saying, .fucking-at{
 	font-size: 2em;
 	width: 75%;
+	min-height: 40px;
+	padding: 10px 0;
 }
 
 .fucking-at{
-	margin: 40px auto 0 auto;
+	margin: 40px auto;
 	min-height: 40px;
 	font-size: 2.5em;
 }
 
-.fucking-content-container{
+.fucking-content-container,
+.fucking-content-container:active{
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	margin: 200px auto 60px auto;
+	margin: 100px auto 60px auto;
 	width: 80%;
 	max-width: 900px;
 	overflow: hidden;
+	/*z-index: 2;*/
+	pointer-events: none;
+	outline: none;
 }
+
+.fucking-content-container *{
+	pointer-events: none;
+}
+
 .fucking-looking-at-container{
 	background: url('../photos/loading.gif') no-repeat center center;
 	background-size: 90%;
 	margin: 0 auto;
-	opacity: 0.8;
 }
 
 .fucking-map-container, .fucking-looking-at-container{
 	width: 400px;
+}
+
+.fucking-instagram-link{
+	display: block;
+	pointer-events: all;
 }
 
 .fucking-image,
@@ -76,7 +92,6 @@ body{
 	top: 0px;
 	cursor: pointer;
 	background-size: 100%;
-	opacity: 0.7;
 }
 
 .fucking-arrow:hover{
@@ -90,9 +105,9 @@ body{
 .fucking-map-background{
 	position: fixed !important;
 	top: 0;
-    height:100%;
-    width:100%;
-    z-index: -1;
-    /*opacity: 0.4;*/
-    pointer-events: none;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  z-index: -1;
+  pointer-events: all;
 }
